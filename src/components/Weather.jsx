@@ -1,13 +1,15 @@
+import { unixToWeekday } from './helpers/weatherHelpers';
 
 export default function WeatherCards({ weatherData }) {
   const { min, max, day } = weatherData.temp;
   const { humidity, dt, wind_speed, pop } = weatherData;
   const { description, icon } = weatherData.weather[0];
+  const weekday = unixToWeekday(dt);
 
   return (
     <ul>
       <img alt="weather-icon" src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
-      <li>Date: {dt}</li>
+      <li>{weekday}</li>
       <li>Description: {description}</li>
       <li>Day: {day}°C</li>
       <li>Minimum: {min}°C</li>

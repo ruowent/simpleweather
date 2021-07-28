@@ -35,23 +35,46 @@ function App() {
     if (currentCity) {
       const APIKEY = process.env.REACT_APP_APIKEY;
       // const url = `//api.openweathermap.org/data/2.5/weather?q=${currentCity}&units=metric&appid=${APIKEY}`;
-      const url = `//api.openweathermap.org/data/2.5/forecast?q=${currentCity}&units=metric&cnt=7&appid=${APIKEY}`;
-      axios
-        .get(url)
-        .then(res => {
-          setWeatherData(res.data);
+      // const url = `//api.openweathermap.org/data/2.5/forecast?q=${currentCity}&units=metric&cnt=7&appid=${APIKEY}`;
+
+      const citySearchURL = `//api.openweathermap.org/geo/1.0/direct?q=${currentCity}&limit=1&appid=${APIKEY}`;
+
+      const postcodeSearchURL = `//api.openweathermap.org/geo/1.0/zip?zip=${currentCity},CA&appid=${APIKEY}`;
+
+      const getWeatherData = async (getGeoCoorsURL) => {
+        try {
+          // GET geo coordinates based on city name/zip code
+          const geoCoors = await axios.get(getGeoCoorsURL);
+          let geoData = geoCoors.data;
+
+          if (Array.isArray(geoData)) {
+            geoData = geoData[0];
+          }
+
+          const { lat, lon } = geoData;
+
+          // GET weather data based on geo coordinates then save to WeatherData state
+          const weatherSearchURL = `//api.openweathermap.org/data/2.5/onecall?lat=${lat.toFixed(2)}&lon=${lon.toFixed(2)}&units=metric&exclude=minutely,hourly,alert&appid=${APIKEY}`;
+          const weatherSearchData = await axios.get(weatherSearchURL);
+          setWeatherData(weatherSearchData.data);
           setErrorMsg("");
-        })
-        .catch(err => setErrorMsg("City not found"));
+
+        } catch (error) {
+          setErrorMsg("Weather data not found. Please search by City, Country or Post code, Country");
+          setWeatherData("");
+        }
+      };
+
+      // TODO: if statement to search by city name or post code
+      // getWeatherData(citySearchURL);
+      getWeatherData(postcodeSearchURL);
     }
   }, [currentCity])
-
-  console.log(weatherData);
 
   return (
     <div className="App">
       Weather app
-      <form className="weather-search" onSubmit={handleSubmit}>
+      {/* <form className="weather-search" onSubmit={handleSubmit}>
         <input
           type="text"
           name="city"
@@ -60,24 +83,18 @@ function App() {
           onChange={handleChange}
         />
         <button type="submit">Submit</button>
+      </form> */}
+      <form className="weather-search" onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="city"
+          placeholder="First three letters of post code, eg. M3C"
+          value={searchData.city}
+          onChange={handleChange}
+        />
+        <button type="submit">Submit</button>
       </form>
       {errorMsg && errorMsg}
-      <section className="CurrentWeather">
-
-        {weatherData &&
-          <ul>
-            <li>Description: {weatherData.list[0].weather[0].description}</li>
-            <img alt="weather-icon" src={`http://openweathermap.org/img/wn/${weatherData.list[0].weather[0].icon}@2x.png`} />
-            <li>Current: {weatherData.list[0].main.temp}°c</li>
-            <li>Minimum: {weatherData.list[0].main.temp_min}°c</li>
-            <li>Maximum: {weatherData.list[0].main.temp_max}°c</li>
-            <li>Wind Speed: {weatherData.list[0].wind.speed}km/hr</li>
-            <li>Humidity: {weatherData.list[0].main.humidity}%</li>
-            <li>Precipitation: {weatherData.list[0].pop}%</li>
-          </ul>
-        }
-
-        Weather description (ex. rain, snow)
 
       {weatherData && (
         <section className="Weather">

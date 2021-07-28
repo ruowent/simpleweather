@@ -4,6 +4,8 @@ const rounder = (value, roundiness) => {
   return Math.round(value * factor) / factor;
 };
 
-export const kelvinToCelsius = (value) => {
-  return rounder((value - 273.15), 1);
-};
+// export const kelvinToCelsius = (value) => {
+//   return rounder((value - 273.15), 1);
+// };
+
+// Unit time converter

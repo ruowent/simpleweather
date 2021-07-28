@@ -8,8 +8,8 @@ export default function CurrentWeather({ weatherData }) {
 
   return (
     <ul>
-      <li>Description: {description}</li>
       <img alt="weather-icon" src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
+      <li>Description: {description}</li>
       <li>Current: {temp}°C</li>
       <li>Minimum: {min}°C</li>
       <li>Maximum: {max}°C</li>

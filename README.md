@@ -8,9 +8,12 @@ Simple Weather app is a responsive front-end app which allows users to search cu
 <b>Development</b>: ReactJS, CSS/SASS<br />
 <b>Tools & Testing</b>: Jest<br />
 
-## 🎥 Screenshots
+## 🎥 Demo
+### 📱 Mobile View
+![MobileView](https://github.com/ruowent/simpleweather/blob/main/public/mobile.gif?raw=true)
 
-
+### 💻 Desktop View
+![DesktopView](https://github.com/ruowent/simpleweather/blob/main/public/desktop.gif?raw=true)
 
 ## 🛠 Setup
 Setup steps for local installation:

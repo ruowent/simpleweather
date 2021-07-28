@@ -9,7 +9,7 @@ export default function CurrentWeather({ weatherData, city }) {
 
   return (
     <div className="current-weather">
-      <h2>Current Weather <i class="fa fa-map-marker" aria-hidden="true"></i> {city}</h2>
+      <h2>Current Weather <i className="fa fa-map-marker" aria-hidden="true"></i> {city}</h2>
       <div className="weather-row2">
         <div className="column1">
           <img alt="weather-icon" src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />

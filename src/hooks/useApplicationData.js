@@ -3,17 +3,17 @@ import { useState } from 'react';
 export default function useApplicationData() {
 
   const [state, setState] = useState({
-    formInput: "",
     searchData: "",
+    city: "",
     weatherData: null,
     errorMsg: ""
   })
 
-  const setFormInput = value => {
-    setState(prev => ({ ...prev, formInput: value }));
-  };
   const setSearchData = value => {
     setState(prev => ({ ...prev, searchData: value }));
+  };
+  const setCity = value => {
+    setState(prev => ({ ...prev, city: value }));
   };
   const setWeatherData = value => {
     setState(prev => ({ ...prev, weatherData: value }));
@@ -22,5 +22,5 @@ export default function useApplicationData() {
     setState(prev => ({ ...prev, errorMsg: value }));
   };
 
-  return { state, setFormInput, setSearchData, setWeatherData, setErrorMsg }
+  return { state, setSearchData, setCity, setWeatherData, setErrorMsg }
 };

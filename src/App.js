@@ -13,7 +13,7 @@ function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    setSearchData(event.target[0].value);
+    setSearchData(event.target[0].value.split(' ').join(''));
     event.target.reset();
   };
 

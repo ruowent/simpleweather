@@ -9,37 +9,30 @@ import WeatherCards from './components/WeatherCards';
 import './App.scss';
 
 function App() {
-  const [searchData, setSearchData] = useState({
-    city: ""
-  });
-  const [currentCity, setCurrentCity] = useState("");
+  const [formInput, setFormInput] = useState("");
+  const [searchData, setSearchData] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [errorMsg, setErrorMsg] = useState("");
 
   const onSubmit = (searchData) => {
-    setCurrentCity(searchData.city)
+    setSearchData(searchData)
   }
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit(searchData);
+    onSubmit(formInput);
   };
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
-
-    setSearchData({ ...searchData, [name]: value });
+    setFormInput(event.target.value);
   };
 
   useEffect(() => {
-    if (currentCity) {
+    if (searchData) {
       const APIKEY = process.env.REACT_APP_APIKEY;
-      // const url = `//api.openweathermap.org/data/2.5/weather?q=${currentCity}&units=metric&appid=${APIKEY}`;
-      // const url = `//api.openweathermap.org/data/2.5/forecast?q=${currentCity}&units=metric&cnt=7&appid=${APIKEY}`;
+      const citySearchURL = `//api.openweathermap.org/geo/1.0/direct?q=${searchData}&limit=1&appid=${APIKEY}`;
 
-      const citySearchURL = `//api.openweathermap.org/geo/1.0/direct?q=${currentCity}&limit=1&appid=${APIKEY}`;
-
-      const postcodeSearchURL = `//api.openweathermap.org/geo/1.0/zip?zip=${currentCity},CA&appid=${APIKEY}`;
+      const postcodeSearchURL = `//api.openweathermap.org/geo/1.0/zip?zip=${searchData},CA&appid=${APIKEY}`;
 
       const getWeatherData = async (getGeoCoorsURL) => {
         try {
@@ -55,21 +48,27 @@ function App() {
 
           // GET weather data based on geo coordinates then save to WeatherData state
           const weatherSearchURL = `//api.openweathermap.org/data/2.5/onecall?lat=${lat.toFixed(2)}&lon=${lon.toFixed(2)}&units=metric&exclude=minutely,hourly,alert&appid=${APIKEY}`;
+
           const weatherSearchData = await axios.get(weatherSearchURL);
           setWeatherData(weatherSearchData.data);
           setErrorMsg("");
-
-        } catch (error) {
-          setErrorMsg("Weather data not found. Please search by City, Country or Post code, Country");
+        }
+        catch (error) {
+          setErrorMsg("Weather data not found. Please search by City, Country or Post code");
           setWeatherData("");
+          if (error.response && error.response.status === 404) { console.clear() };
         }
       };
 
-      // TODO: if statement to search by city name or post code
-      // getWeatherData(citySearchURL);
-      getWeatherData(postcodeSearchURL);
+      // Search by city name or post code based on form input value
+      const containNumber = /\d/.test(searchData);
+      if (containNumber) {
+        getWeatherData(postcodeSearchURL);
+      } else {
+        getWeatherData(citySearchURL);
+      };
     }
-  }, [currentCity])
+  }, [searchData])
 
   return (
     <div className="App">
@@ -87,9 +86,8 @@ function App() {
       <form className="weather-search" onSubmit={handleSubmit}>
         <input
           type="text"
-          name="city"
-          placeholder="First three letters of post code, eg. M3C"
-          value={searchData.city}
+          placeholder="City name or First three letters of post code, eg. Toronto, M3C"
+          value={formInput}
           onChange={handleChange}
         />
         <button type="submit">Submit</button>

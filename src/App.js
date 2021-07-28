@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 
 import CurrentWeather from './components/CurrentWeather';
 import WeatherCards from './components/WeatherCards';
 
 // import { kelvinToCelsius } from './components/helpers/weatherHelpers';
-
+import useApplicationData from './hooks/useApplicationData';
 import './App.scss';
 
 function App() {
-  const [formInput, setFormInput] = useState("");
-  const [searchData, setSearchData] = useState("");
-  const [weatherData, setWeatherData] = useState(null);
-  const [errorMsg, setErrorMsg] = useState("");
+  const { state, setFormInput, setSearchData, setWeatherData, setErrorMsg } = useApplicationData();
+  const { formInput, searchData, weatherData, errorMsg } = state;
 
   const onSubmit = (searchData) => {
     setSearchData(searchData)
@@ -32,7 +30,7 @@ function App() {
       const APIKEY = process.env.REACT_APP_APIKEY;
       const citySearchURL = `//api.openweathermap.org/geo/1.0/direct?q=${searchData}&limit=1&appid=${APIKEY}`;
 
-      const postcodeSearchURL = `//api.openweathermap.org/geo/1.0/zip?zip=${searchData},CA&appid=${APIKEY}`;
+      const postcodeSearchURL = `//api.openweathermap.org/geo/1.0/zip?zip=${searchData}&appid=${APIKEY}`;
 
       const getWeatherData = async (getGeoCoorsURL) => {
         try {

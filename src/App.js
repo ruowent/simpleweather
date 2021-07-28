@@ -56,6 +56,7 @@ function App() {
         catch (error) {
           setErrorMsg("Weather data not found. Please search by City, Country or Post code");
           setWeatherData("");
+          // Remove 404 error console.log which displays API key as part of the url
           if (error.response && error.response.status === 404) { console.clear() };
         }
       };
@@ -72,17 +73,7 @@ function App() {
 
   return (
     <div className="App">
-      Weather app
-      {/* <form className="weather-search" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="city"
-          placeholder="Toronto, Canada"
-          value={searchData.city}
-          onChange={handleChange}
-        />
-        <button type="submit">Submit</button>
-      </form> */}
+      <h2>Simple Weather</h2>
       <form className="weather-search" onSubmit={handleSubmit}>
         <input
           type="text"

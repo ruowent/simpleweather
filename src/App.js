@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+
+import CurrentWeather from './components/CurrentWeather';
+import WeatherCards from './components/WeatherCards';
+
 // import { kelvinToCelsius } from './components/helpers/weatherHelpers';
 
 import './App.scss';
@@ -75,12 +79,12 @@ function App() {
 
         Weather description (ex. rain, snow)
 
-        ○ Minimum temperature
-        ○ Maximum temperature
-        ○ Wind speed
-        ○ Precipitation
-        ○ Humidity
-      </section>
+      {weatherData && (
+        <section className="Weather">
+          <CurrentWeather weatherData={weatherData} />
+          <WeatherCards weatherData={weatherData.daily} />
+        </section>
+      )}
     </div>
   );
 }

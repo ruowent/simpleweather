@@ -1,0 +1,36 @@
+.current-weather {
+  // display: flex;
+  border: 2px solid #5c69f2;
+  margin: 1rem;
+  min-width: 280px;
+  border-radius: 20px;
+  background-color: #8fb7f3;
+  // color: #eaf3fb;
+
+  .weather-row2 {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    justify-content: space-around;
+    align-items: center;
+    margin: 1rem;
+  }
+
+  .weather-row3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 1rem;
+
+    div {
+      margin: 1rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .current-weather {
+    padding: 1rem;
+    border: none;
+  }
+}

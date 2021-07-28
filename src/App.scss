@@ -1,3 +1,58 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+
+  .weather-search {
+    width: 94%;
+    display: flex;
+    margin: auto;
+
+    input {
+      width: 100%;
+      border: 3px solid #5c69f2;
+      border-right: none;
+      padding: 5px;
+      height: 2rem;
+      border-radius: 10px 0 0 10px;
+      outline: none;
+    }
+
+    button {
+      width: 3rem;
+      height: 3rem;
+      border: 1px solid #5c69f2;
+      background: #5c69f2;
+      text-align: center;
+      color: #fff;
+      border-radius: 0 10px 10px 0;
+      cursor: pointer;
+      font-size: 20px;
+    }
+  }
+
+  .error {
+    color: #c00101;
+    font-weight: bold;
+    white-space: pre-wrap;
+    padding: 1rem;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .App {
+    background-color: #eaf3fb;
+    width: 45rem;
+    margin: 4rem;
+    border-radius: 8px;
+    padding-bottom: 1rem;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, 
+      rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, 
+      rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+
+      .weather-search {
+        margin-bottom: 1rem;
+      }
+  }
 }

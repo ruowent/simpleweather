@@ -4,7 +4,6 @@ import axios from 'axios';
 import CurrentWeather from './components/CurrentWeather';
 import WeatherCards from './components/WeatherCards';
 
-// import { kelvinToCelsius } from './components/helpers/weatherHelpers';
 import useApplicationData from './hooks/useApplicationData';
 import './App.scss';
 
@@ -38,10 +37,11 @@ function App() {
           const geoCoors = await axios.get(getGeoCoorsURL);
           let geoData = geoCoors.data;
 
+          // Store API response object data if geoData is an array
+          // This is due to response data structure difference between city/zipcode search
           if (Array.isArray(geoData)) {
             geoData = geoData[0];
           }
-
           const { lat, lon } = geoData;
 
           // GET weather data based on geo coordinates then save to WeatherData state
@@ -67,7 +67,7 @@ function App() {
         getWeatherData(citySearchURL);
       };
     }
-  }, [searchData])
+  }, [searchData]);
 
   return (
     <div className="App">

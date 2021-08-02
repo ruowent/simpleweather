@@ -31,7 +31,7 @@ yarn install
 ```sh
 yarn start
 ```
-## ✅ Tools & Testing (Storybook, Jest, Cypress)
+## ✅ Tools & Testing (Jest)
 
 ### Running Jest Test Framework
 

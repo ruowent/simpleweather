@@ -4,8 +4,6 @@
 
 Simple Weather app is a responsive front-end app which allows users to search current and forecast weather data by city name or post code. 
 
-[>>> View my app here <<< ](https://ruowent.github.io/simpleweather/)
-
 ## 🖥 Tech Stack
 <b>Development</b>: ReactJS, CSS/SASS<br />
 <b>Tools & Testing</b>: Jest<br />
@@ -18,7 +16,7 @@ Simple Weather app is a responsive front-end app which allows users to search cu
 ![DesktopView](https://github.com/ruowent/simpleweather/blob/main/public/desktop.gif?raw=true)
 
 ## 🛠 Setup
-This app is deployed [here](https://ruowent.github.io/simpleweather/), however if you prefer to setup a local copy, please follow the stpes below: 
+Setup a local copy, please follow the stpes below: 
 
 1. Fork or download this repository
 

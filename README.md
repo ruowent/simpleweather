@@ -16,7 +16,7 @@ Simple Weather app is a responsive front-end app which allows users to search cu
 ![DesktopView](https://github.com/ruowent/simpleweather/blob/main/public/desktop.gif?raw=true)
 
 ## 🛠 Setup
-Setup a local copy, please follow the stpes below: 
+Setup a local copy, please follow stpes below: 
 
 1. Fork or download this repository
 
